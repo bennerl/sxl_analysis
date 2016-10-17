@@ -2,7 +2,7 @@
 import sys, fasta
 
 if sys.argv[2] == "annotate":
-    gtf = open("/Users/cmdb/bam_sxl_analysis/data_tables/r6.12_dmel_noERCC.gtf")
+    gtf = open("/Users/cmdb/sxl_data/data_tables/r6.12_dmel_noERCC.gtf")
     tran_exon_dict = {}
     gene_tran_dict = {}
     for line in gtf:
@@ -75,7 +75,7 @@ if sys.argv[2] == "annotate":
             print "\t".join(line)
             
 if sys.argv[2] == "unannotate":
-    string = open("/Users/cmdb/bam_sxl_analysis/data_tables/stringtie.gtf")
+    string = open("/Users/cmdb/sxl_data/data_tables/stringtie.gtf")
     string_tran_exon_dict = {}
     string_gene_tran_dict = {}
     string_exon_gene_dict = {}

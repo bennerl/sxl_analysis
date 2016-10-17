@@ -1,8 +1,8 @@
 library("ballgown")
-mCh <- list.files("~/bam_ballgown/stringtie_annotated/", pattern = "mCh.*", full.names = T)
-Sxl <- list.files("~/bam_ballgown/stringtie_annotated/", pattern = "Sxl.*", full.names = T)
-BAMF <- list.files("~/bam_ballgown/stringtie_annotated/", pattern = "bamF.*", full.names = T)
-BAMM <- list.files("~/bam_ballgown/stringtie_annotated/", pattern = "bamM.*", full.names = T)
+mCh <- list.files("~/sxl_data/stringtie_annotated/", pattern = "mCh.*", full.names = T)
+Sxl <- list.files("~/sxl_data/stringtie_annotated/", pattern = "Sxl.*", full.names = T)
+BAMF <- list.files("~/sxl_data/stringtie_annotated/", pattern = "bamF.*", full.names = T)
+BAMM <- list.files("~/sxl_data/stringtie_annotated/", pattern = "bamM.*", full.names = T)
 BG=ballgown(samples = c(BAMF, BAMM, mCh, Sxl), meas = "all")
 RNAi_BG=ballgown(samples = c(mCh, Sxl), meas = "all")
 BAM_BG=ballgown(samples = c(BAMF, BAMM), meas = "all")
@@ -23,8 +23,8 @@ tTOg <- data.frame(indexes(BG)$t2g)
 eTOg <- merge(eTOt, tTOg, by = "t_id")
 eTOg <- eTOg[,-c(1)]
 eTOg <- unique(eTOg)
-write.table(tTOg, "~/bam_sxl_analysis/data_tables/t2g_annotated.txt", quote = F, sep = "\t", row.names = F, col.names = T)
-write.table(eTOg, "~/bam_sxl_analysis/data_tables/e2g_annotated.txt", quote = F, sep = "\t", row.names = F, col.names = T)
+write.table(tTOg, "~/sxl_data/data_tables/t2g_annotated.txt", quote = F, sep = "\t", row.names = F, col.names = T)
+write.table(eTOg, "~/sxl_data/data_tables/e2g_annotated.txt", quote = F, sep = "\t", row.names = F, col.names = T)
 
 merge_gene_stattest <- function(BG_OBJECT, NAME, gene_pval){
   temp_df <- stattest(BG_OBJECT, feature = "gene", meas='FPKM', covariate = 'group', getFC = T)
@@ -120,8 +120,8 @@ exon_exp_BG$Sxl_count_mean <- rowMeans(exon_exp_BG[,c(69, 76, 83)])
 exon_exp_table <- exon_exp_BG
 exon_exp_table <- merge(exon_exp_table, BG_exon, by = "id")
 
-write.table(gene_exp_table, "~/bam_sxl_analysis/data_tables/raw_gene_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
-write.table(trans_exp_table, "~/bam_sxl_analysis/data_tables/raw_trans_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
-write.table(exon_exp_table, "~/bam_sxl_analysis/data_tables/raw_exon_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
+write.table(gene_exp_table, "~/sxl_data/data_tables/raw_gene_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
+write.table(trans_exp_table, "~/sxl_data/data_tables/raw_trans_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
+write.table(exon_exp_table, "~/sxl_data/data_tables/raw_exon_table_annotated.txt", row.names = F, col.names = T, sep = "\t", quote = F)
 
 

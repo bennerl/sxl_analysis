@@ -2,8 +2,8 @@
 import sys
 
 if sys.argv[1] == "gtf":
-    stringtie = open("/Users/cmdb/bam_sxl_analysis/data_tables/stringtie.gtf")
-    gtf = open("/Users/cmdb/bam_sxl_analysis/data_tables/r6.12_dmel_noERCC.gtf")
+    stringtie = open("/Users/cmdb/sxl_data/data_tables/stringtie.gtf")
+    gtf = open("/Users/cmdb/sxl_data/data_tables/r6.12_dmel_noERCC.gtf")
     gtf_set = set()
     for line in gtf:
         line = line.rstrip("\r\n").split("\t")
@@ -24,7 +24,7 @@ if sys.argv[1] == "gtf":
             print "\t".join(line[:8]) + "\t" + " ".join(group[:2])
 
 if sys.argv[1] == "merge": 
-    gtf = open("/Users/cmdb/bam_sxl_analysis/data_tables/novel_exons.txt")
+    gtf = open("/Users/cmdb/sxl_data/data_tables/novel_exons.txt")
     gtf_dict = {}
     for line in gtf:
         line = line.rstrip("\r\n").split("\t")

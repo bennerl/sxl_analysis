@@ -68,7 +68,7 @@ for gene_names_line in gene_names:
 
 if table_type == "exon":
     
-    e2g = open("/Users/cmdb/bam_sxl_analysis/data_tables/e2g_annotated.txt")
+    e2g = open("/Users/cmdb/sxl_data/data_tables/e2g_annotated.txt")
     e2g_dict = {}
     for e2g_line in e2g:
         e2g_line = e2g_line.rstrip("\r\n").split("\t")
@@ -146,7 +146,7 @@ if table_type == "gene":
             gene_file_dic[gene_file_line[0]].append(gene_file_line)
 
 #dict of chr:[line]
-    gtf_file = open("/Users/cmdb/bam_sxl_analysis/data_tables/r6.12_dmel_noERCC.gtf")
+    gtf_file = open("/Users/cmdb/sxl_data/data_tables/r6.12_dmel_noERCC.gtf")
     UTR_dict = {}
     for gtf_file_line in gtf_file:
         gtf_file_line = gtf_file_line.rstrip("\r\n").split("\t")
