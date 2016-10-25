@@ -19,32 +19,38 @@ do
 	mv temp.txt ${i%txt}chr.txt
 done
 
-rm ~/sxl_data/bed/${MOTIF}_exon_*_annot.bed
+rm ~/sxl_data/bed/${MOTIF}_exon*annot.bed
 ~/sxl_analysis/scripts/target_finder.py exon bed ~/sxl_data/data_tables/exon_pos_fc_annot.txt ~/sxl_data/data_tables/e2g_annotated.txt > ~/sxl_data/bed/${MOTIF}_exon_pos_annot.bed
 ~/sxl_analysis/scripts/target_finder.py exon bed ~/sxl_data/data_tables/exon_neg_fc_annot.txt ~/sxl_data/data_tables/e2g_annotated.txt > ~/sxl_data/bed/${MOTIF}_exon_neg_annot.bed
 
+echo "track name=\"${MOTIF}ExonAnnot\" description=\"${MOTIF} Exon Annotated\" visibility=2 itemRgb=\"On\"" > ~/sxl_data/bed/${MOTIF}_exon_annot.bed
 for i in ~/sxl_data/bed/${MOTIF}_exon_*_annot.bed
 do
-	NAME=${i#/Users/cmdb/sxl_data/bed/}
-	NAME=${NAME%.bed}
-	NAME_SPACE=$(echo $NAME | tr '_' ' ')
-	NAME=$(echo $NAME | sed 's|_||g')
-	echo "track name=\"$NAME_SPACE\" description=\"$NAME\" visibility=2 itemRgb=\"On\"" > temp.txt
-	cat $i | sort | uniq >> temp.txt; rm $i; mv temp.txt $i
+	FILE=${i#/Users/cmdb/sxl_data/bed/${MOTIF}_exon_}
+	FILE=${FILE%_annot.bed}
+	if [ $FILE == "pos" ]
+	then
+		cat $i | sed 's|0,0,0|0,178,46|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_exon_annot.bed
+	else
+		cat $i | sed 's|0,0,0|178,0,0|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_exon_annot.bed
+	fi
 done
 
 rm ~/sxl_data/bed/${MOTIF}_gene*annot.bed
 ~/sxl_analysis/scripts/target_finder.py gene bed ~/sxl_data/data_tables/gene_pos_fc_annot.chr.txt ~/annotations/r6.12_dmel_noERCC.gtf > ~/sxl_data/bed/${MOTIF}_gene_pos_annot.bed
 ~/sxl_analysis/scripts/target_finder.py gene bed ~/sxl_data/data_tables/gene_neg_fc_annot.chr.txt ~/annotations/r6.12_dmel_noERCC.gtf > ~/sxl_data/bed/${MOTIF}_gene_neg_annot.bed
 
-for i in ~/sxl_data/bed/${MOTIF}_gene*annot.bed
+echo "track name=\"${MOTIF}GeneAnnot\" description=\"${MOTIF} Gene Annotated\" visibility=2 itemRgb=\"On\"" > ~/sxl_data/bed/${MOTIF}_gene_annot.bed
+for i in ~/sxl_data/bed/${MOTIF}_gene_*_annot.bed
 do
-	NAME=${i#/Users/cmdb/sxl_data/bed/}
-	NAME=${NAME%.bed}
-	NAME_SPACE=$(echo $NAME | tr '_' ' ')
-	NAME=$(echo $NAME | sed 's|_||g')
-	echo "track name=\"$NAME_SPACE\" description=\"$NAME\" visibility=2 itemRgb=\"On\"" > temp.txt
-	cat $i | sort | uniq >> temp.txt; rm $i; mv temp.txt $i
+	FILE=${i#/Users/cmdb/sxl_data/bed/${MOTIF}_gene_}
+	FILE=${FILE%_annot.bed}
+	if [ $FILE == "pos" ]
+	then
+		cat $i | sed 's|0,0,0|0,178,46|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_gene_annot.bed
+	else
+		cat $i | sed 's|0,0,0|178,0,0|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_gene_annot.bed
+	fi
 done
 
 rm ~/sxl_data/data_tables/novel_exons.txt
@@ -52,18 +58,21 @@ rm ~/sxl_data/data_tables/novel_exons.txt
 rm ~/sxl_data/data_tables/novel_exon_*_fc_unannot.txt
 ~/sxl_analysis/scripts/novel_exon_find.py merge ~/sxl_data/data_tables/exon_pos_fc_unannot.txt > ~/sxl_data/data_tables/novel_exon_pos_fc_unannot.txt
 ~/sxl_analysis/scripts/novel_exon_find.py merge ~/sxl_data/data_tables/exon_neg_fc_unannot.txt > ~/sxl_data/data_tables/novel_exon_neg_fc_unannot.txt
-rm ~/sxl_data/bed/${MOTIF}_novel_exon_*_unannot.bed
+rm ~/sxl_data/bed/${MOTIF}_novel_exon*unannot.bed
 ~/sxl_analysis/scripts/target_novel_exon.py bed ~/sxl_data/data_tables/novel_exon_pos_fc_unannot.txt > ~/sxl_data/bed/${MOTIF}_novel_exon_pos_unannot.bed
 ~/sxl_analysis/scripts/target_novel_exon.py bed ~/sxl_data/data_tables/novel_exon_neg_fc_unannot.txt > ~/sxl_data/bed/${MOTIF}_novel_exon_neg_unannot.bed
 
-for i in ~/sxl_data/bed/${MOTIF}_novel*.bed
+echo "track name=\"${MOTIF}ExonUnannot\" description=\"${MOTIF} Exon Unannotated\" visibility=2 itemRgb=\"On\"" > ~/sxl_data/bed/${MOTIF}_novel_exon_unannot.bed
+for i in ~/sxl_data/bed/${MOTIF}_novel_exon_*_unannot.bed
 do
-	NAME=${i#/Users/cmdb/sxl_data/bed/}
-	NAME=${NAME%.bed}
-	NAME_SPACE=$(echo $NAME | tr '_' ' ')
-	NAME=$(echo $NAME | sed 's|_||g')
-	echo "track name=\"$NAME_SPACE\" description=\"$NAME\" visibility=2 itemRgb=\"On\"" > temp.txt
-	cat $i | sort | uniq >> temp.txt; rm $i; mv temp.txt $i
+	FILE=${i#/Users/cmdb/sxl_data/bed/${MOTIF}_novel_exon_}
+	FILE=${FILE%_unannot.bed}
+	if [ $FILE == "pos" ]
+	then
+		cat $i | sed 's|0,0,0|0,178,46|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_novel_exon_unannot.bed
+	else
+		cat $i | sed 's|0,0,0|178,0,0|g'| sort | uniq >> ~/sxl_data/bed/${MOTIF}_novel_exon_unannot.bed
+	fi
 done
 
 rm ~/sxl_data/data_tables/${MOTIF}_exon_*_annot_stat*.txt
@@ -131,8 +140,8 @@ rm ~/sxl_data/data_tables/${MOTIF}_novel_exon_*_unannot_stat*.txt
 
 for i in ~/sxl_data/data_tables/${MOTIF}_novel_exon_*_unannot_stats.txt
 do
-	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Gene_id" "Gene" "Motif" "FC_RNAi" "pVal_RNAi" "FC_bam" "pVal_bam" "mCh_FPKM" "Sxl_FPKM" "bamF_FPKM" "bamM_FPKM" "Chr" "Start" "End" "Strand" "Exon_start" "Exon_end" "Prime" "e_id" > temp.txt
-	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Gene_id" "Gene" "Motif" "FC_RNAi" "pVal_RNAi" "FC_bam" "pVal_bam" "mCh_FPKM" "Sxl_FPKM" "bamF_FPKM" "bamM_FPKM" "Chr" "Start" "End" "Strand" "exon_start" "exon_end" "Prime" "e_id" > temp1.txt
+	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Gene_id" "Gene" "Motif" "FC_RNAi" "pVal_RNAi" "FC_bam" "pVal_bam" "mCh_FPKM" "Sxl_FPKM" "bamF_FPKM" "bamM_FPKM" "Chr" "Start" "End" "Strand" "Exon_start" "Exon_end" "Prime" "e_id" > temp.txt
+	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Gene_id" "Gene" "Motif" "FC_RNAi" "pVal_RNAi" "FC_bam" "pVal_bam" "mCh_FPKM" "Sxl_FPKM" "bamF_FPKM" "bamM_FPKM" "Chr" "Start" "End" "Strand" "exon_start" "exon_end" "Prime" "e_id" > temp1.txt
 	FC=${i#/Users/cmdb/sxl_data/data_tables/${MOTIF}_novel_exon_}
 	FC=${FC%_unannot_stats.txt}
 	if [ $FC == "pos" ]

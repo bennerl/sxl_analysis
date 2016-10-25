@@ -57,7 +57,7 @@ def motif_find_exon(target, up_start, down_start, prime):
                 fc_bam = float(row[9])
                 pval_bam = float(row[10])
                 gene_id = gene_names_find(gene)
-                print "%s\t%s\t%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%s\t%d\t%d\t%s\t%s\t%s\t%s\t%s" % (gene_id, gene, motif_match, fc_rnai, pval_rnai, fc_bam, pval_rnai, mch, sxl, bamf, bamm, ident, start, end, strand, exon_start, exon_end, prime,row[0] )
+                print "%s\t%s\t%s\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%.6f\t%s\t%d\t%d\t%s\t%s\t%s\t%s\t%s" % (gene_id, gene, motif_match, fc_rnai, pval_rnai, fc_bam, pval_bam, mch, sxl, bamf, bamm, ident, start, end, strand, exon_start, exon_end, prime,row[0] )
 
 gene_names = open("/Users/cmdb/annotations/Dmel_gene_names.txt")
 gene_names_dic = {}

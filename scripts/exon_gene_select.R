@@ -9,7 +9,7 @@ pval <- .5
 pos_fc <- 1
 neg_fc <- 1
 count <- 10
-fpkm <- .5
+fpkm <- 1
 
 exon_pos_fc <- exon[exon$fc_RNAi > pos_fc & exon$pval_RNAi < pval,]
 exon_pos_fc <- exon_pos_fc[exon_pos_fc$Sxl_count_mean > count | exon_pos_fc$mCh_count_mean > count,]
