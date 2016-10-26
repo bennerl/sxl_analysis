@@ -1,8 +1,7 @@
 #change motif in target_finder.py and 
 
 """
-change description and tracknames for bed files with motifs
-change motif based on paper
+annotated support pipeline doesnt call transcripts correctly, example is EcR
 look at the distribuition of FPKM and read counts for genes, come up with better rationale to remove genes that are underexrpressed in samples
 """
 
@@ -170,3 +169,5 @@ do
 		awk '{if ($20~"Yes") print}' $i | sort -nk4 | uniq >> temp.txt; rm $i; mv temp.txt $i
 	fi
 done
+
+RScript /Users/cmdb/sxl_analysis/scripts/gene_name_add.R #
